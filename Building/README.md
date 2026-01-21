@@ -154,9 +154,9 @@ Update the resolution definitions and theme structure.
 
 ### Code Changes
 
-1.  **File:** `FunKey/package/gmenu2x/src/gmenu2x.cpp`
+1.  **File:** `FunKey/output/build/gmenu2x-HEAD/src/gmenu2x.cpp`
       * **Change:** `#define SCREEN_WIDTH  320`
-2.  **File:** `FunKey/package/gmenu2x/src/funkeymenu.cpp`
+2.  **File:** `FunKey/output/build/gmenu2x-HEAD/src/funkeymenu.cpp`
       * **Change:** `#define SCREEN_HORIZONTAL_SIZE       320 //RES_HW_SCREEN_HORIZONTAL`
 
 ### Theme Directory

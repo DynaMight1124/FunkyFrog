@@ -1,6 +1,6 @@
 # FunkyFrog OS Compilation Guide
 
-This guide documents the process of compiling the FunkyFrog OS image. It is based on the FunKeyOS by DrUm78 [FunKey-OS](https://github.com/DrUm78/FunKey-OS) but includes specific modifications for the larger 320x240 display and custom hardware adjustments as well as some cosmetic changes due to the change of resolution/aspect ratio.
+This guide documents the process of compiling the FunkyFrog OS image. It is based on the FunKeyOS by [DrUm78](https://github.com/DrUm78/FunKey-OS) but includes specific modifications for the larger 320x240 display and custom hardware adjustments as well as some cosmetic changes due to the change of resolution/aspect ratio.
 
 **Note:** This guide uses a direct modification method (replacing files in the build directory) rather than a full clean environment setup. This is not the proper way to do things, its a little hacky but is quicker to setup for such a niche device.
 
@@ -19,13 +19,13 @@ The first step is updating the video drivers and device tree to support the 320x
 
 ### Video Driver (fbtft)
 
-We need to replace the driver files and force a recompile.
+We need to replace the two driver files and force a recompile.
 
 1.  **Locate the directories:**
       * `FunKey-OS/Recovery/output/build/linux-custom/drivers/staging/fbtft/`
       * `FunKey-OS/FunKey/output/build/linux-custom/drivers/staging/fbtft/`
 2.  **Action:**
-      * Copy the custom driver files (from fbtft-drivers.zip) into *both* directories, overwriting existing files.
+      * Copy the two driver files (from fbtft-drivers.zip) into *both* directories, overwriting existing files.
       * **Crucial:** Delete any existing `.o` (object) files in these folders to ensure they are recompiled.
 
 ### Device Tree (DTS)
@@ -37,7 +37,7 @@ This controls the hardware configuration.
       * Path 2: `FunKey-OS/Recovery/output/build/linux-custom/arch/arm/boot/dts/`
 2.  **Action:** Overwrite the file in both locations.
    
-**Tip:** You can adjust the charge rate within the DTS file. Look for constant_charge_current_max_microamp. 500000 is 500mAh, 1000000 is 1000mAh. The chip supports a maximum of 1500000 (1500mAh).
+**Tip:** You can adjust the charge rate within the DTS file. Look for constant-charge-current-max-microamp. 500000 is 500mAh, 1000000 is 1000mAh. The chip supports a maximum of 1500000 (1500mAh).
 
 ### Boot Logos (Optional)
 

@@ -95,6 +95,12 @@ Update RetroFE to utilize the full horizontal width.
 
       * **Set:** `horizontal = 320`
 
+Run the following command to recompile:
+
+```bash
+make FunKey/retrofe-rebuild
+```
+
 ### Themes
 
 Themes designed for FunKey will work ok but stretch to the full screen so dont look great, however I have amended some themes for 320x240. They are not perfect as most had the backgrounds stretched Paint rather than recreated at the proper resolution but they do look better than the original ones designed for 240x240 as I also edited the xml files to keep other aspects of the theme from stretching (such as logos, boxarts etc).
@@ -107,28 +113,15 @@ Themes designed for FunKey will work ok but stretch to the full screen so dont l
 
 ## 4\. PicoArch
 
-Recent official PicoArch updates have scaling issues on 320x240 screens. We must revert to a specific working version.
+The official PicoArch releases have scaling issues on 320x240 screens. We must use to a specific working version.
 
 ### Setup
 
 1.  **Download:** Use the [FunkyFrog branch](https://github.com/DynaMight1124/picoarch/tree/FunkyFrog) or `picoarch-working.zip`.
 2.  **Location:** `FunKey-OS/FunKey/output/build/picoarch-HEAD`
 3.  **Action:** Overwrite the directory contents.
+* **Crucial:** Delete any existing `.o` (object) files in these folders to ensure they are recompiled.
 
-### Manual Code Changes (If not using the zip)
-
-  * **File:** `scale.h`
-    ```c
-    #ifdef FUNKEY_S
-    #define SCREEN_WIDTH 320
-    #else
-    #define SCREEN_WIDTH 320
-    #endif
-    ```
-  * **File:** `funkey/fk_menu.c`
-    ```c
-    #define SCREEN_HORIZONTAL_SIZE       320 //RES_HW_SCREEN_HORIZONTAL
-    ```
 
 ### Recompile & Add Cores
 
@@ -137,7 +130,7 @@ Recent official PicoArch updates have scaling issues on 320x240 screens. We must
     make FunKey/picoarch-rebuild
     ```
 2.  **Add Cores:** The compile process builds PicoArch but does not build the emulator cores. Its possible that future updates may change to use different cores for systems or add additional systems so keep this in mind. Also note that these cores do not need to be compiled to 320x240, as long as PicoArch is compiled for 320x240 then cores compiled for FunKey will work correctly.
-      * Extract `Picoarch-cores.zip` to: `FunKey-OS/FunKey/output/target/usr/games/`
+      * Extract `Picoarch-cores.zip` to: `FunKey-OS/FunKey/output/target/usr/games/` Note theres also a folder called 'port-cores' these need to go into: `FunKey-OS\FunKey\output\target\usr\local\share\OPKs\Libretro` and Duke3D needs to go into the 'Native' folder, matching the .png file name.
 
 > **Troubleshooting:** If you encounter build errors when switching versions:
 >
@@ -193,7 +186,10 @@ If `make` fails because the image size is too big or too small:
 
 1.  Open `genimage.cfg` in the main directory.
 2.  Locate `partition FunKey`.
-3.  Adjust 'size' (e.g. default is `250M` so adjust to 260M, you may need to play around with this figure to get it to compile).
+3.  Adjust 'size' (e.g. default is `350M` so adjust to 360M, you may need to play around with this figure to get it to compile).
+
+**Any kind of issue after a successful compile:**
+e.g. garbled screen, emulators not 320x240 etc. Generally I have found if I start from a fresh base, copy across the files in this guide and then have issues, its usually related to .o files not being recompiled after the change. I would recommend re-visiting the files replaced/amended, deleting their .o files and recompiling.
 
 
-Also note I have been working from the OS build on Dec 2, 2025 https://github.com/DrUm78/FunKey-OS/tree/541f56337786e6392379c649595dab4a5391dca6 (and all the other related packages from this date also), its very possible that future updates make changes which will require adjustment to the above. When setting up the build environment it will always pull the latest packages/updates at the time, just take this into consideration if errors occur. I doubt anyone will actually build a FunkyFrog let alone setup a build environment for it but if I dont write it down now, I'll forget in a few months myself!
+Also note this guide is based on the current FunkeyOS repo as of 4th March 2026, its very possible that future updates make changes which will require adjustment to the above. When setting up the build environment it will always pull the latest packages/updates at the time, just take this into consideration if errors occur. I doubt anyone will actually build a FunkyFrog let alone setup a build environment for it but if I dont write it down now, I'll forget in a few months myself!
